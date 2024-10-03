@@ -1,15 +1,20 @@
 import "./App.css";
 import Users from "./components/Users";
+import Home from "./components/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <h1>Home</h1>,
+    element: <Home />,
   },
   {
     path: "/users",
     element: <Users />,
+  },
+  {
+    path: "/test",
+    element: <div>test</div>,
   },
 ]);
 function App() {
