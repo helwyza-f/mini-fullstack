@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const Home = () => {
+const Test = () => {
   const [text, setText] = useState("");
   useEffect(() => {
     const fetchHome = async () => {
       try {
         const response = await axios.get(
-          "https://mini-fullstack-ecru.vercel.app/"
+          "https://mini-fullstack-ecru.vercel.app/test"
         );
         setText(response.data);
         console.log(response);
@@ -20,7 +20,7 @@ const Home = () => {
   }, []); // Dependency array kosong berarti akan berjalan sekali ketika komponen di-mount
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Test</h1>
 
       <p>{text}</p>
       <Link to="/users">Users</Link>
@@ -30,4 +30,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Test;
