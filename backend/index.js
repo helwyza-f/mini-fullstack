@@ -15,10 +15,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOption = {
-  origin: "http://localhost:5174",
-  credentials: true,
-};
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -29,7 +25,7 @@ app.get("/test", (req, res) => {
   res.send("Hello test");
 });
 
-app.use("/api/v1/user", userRoute);
+app.use("/user", userRoute);
 
 const connectDB = async () => {
   try {
