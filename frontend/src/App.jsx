@@ -2,6 +2,7 @@ import "./App.css";
 import Users from "./components/Users";
 import Home from "./components/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Test from "./components/Test";
 
 const appRouter = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <div>test</div>,
+    element: <Test />,
   },
 ]);
 function App() {
