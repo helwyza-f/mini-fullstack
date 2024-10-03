@@ -14,18 +14,16 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-const corsOptions = {
-  origin: "https://mini-fullstack.netlify.app/",
-  Credentials: true,
-};
-app.use(cors(corsOptions));
 
+app.use((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 app.get("/", (req, res) => {
   res.send("Hello World!");
-});
-
-app.get("/test", (req, res) => {
-  res.send("Hello test");
 });
 
 app.use("/user", userRoute);
