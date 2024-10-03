@@ -89,7 +89,7 @@ export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
 
-    res.status(200).header("Access-Control-Allow-Origin", "*").json({
+    res.status(200).json({
       users,
       success: true,
     });

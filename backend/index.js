@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/user", userRoute);
+app.use("/api/user", userRoute);
 
 const connectDB = async () => {
   try {
