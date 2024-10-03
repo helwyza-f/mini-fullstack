@@ -88,7 +88,7 @@ export const logout = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json({
+    res.status(200).header("Access-Control-Allow-Origin", "*").json({
       users,
       success: true,
     });
