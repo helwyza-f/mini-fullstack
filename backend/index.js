@@ -19,7 +19,7 @@ const corsOption = {
   origin: "http://localhost:5174",
   credentials: true,
 };
-app.use(cors(corsOption));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
