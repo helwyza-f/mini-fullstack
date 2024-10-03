@@ -14,8 +14,11 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(cors());
+const corsOptions = {
+  origin: "https://mini-fullstack.netlify.app/",
+  Credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

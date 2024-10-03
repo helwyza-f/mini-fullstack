@@ -6,7 +6,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "https://mini-fullstack-ecru.vercel.app/api/v1/user/users"
+          "https://mini-fullstack-ecru.vercel.app/user/users"
         );
         setUsers(response.data.users);
       } catch (error) {
