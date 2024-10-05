@@ -142,6 +142,17 @@ app.get("/status", (req, res) => {
   });
 });
 
+app.get("/query", (req, res) => {
+  // Ambil query dari URL
+  const query = req.query;
+
+  // Tampilkan query dalam respons JSON
+  res.json({
+    message: "Query parameters received",
+    data: query,
+  });
+});
+
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server running at port ${PORT}`);
