@@ -42,10 +42,23 @@ const applicationRouter = express.Router();
 
 // User routes
 userRouter.get("/", (req, res) => {
-  res.json({ message: "Get all users" });
+  res.json({ message: "Get users" });
 });
 userRouter.post("/", (req, res) => {
   res.json({ message: "Create new user" });
+});
+import User from "./models/User.js";
+userRouter.get("/users", async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json({
+      users,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // Company routes
