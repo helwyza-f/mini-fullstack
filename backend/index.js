@@ -101,7 +101,7 @@ app.use("/api/v1/application", applicationRouter);
 // Root route
 app.get("/", (req, res) => {
   return res.status(201).json({
-    message: "Account created successfully.",
+    message: `Server running at port ${PORT} ${process.env.MONGODB_URI}`,
     success: true,
   });
 });
