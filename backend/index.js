@@ -108,16 +108,27 @@ app.get("/", (req, res) => {
 
 app.get("/check-db", async (req, res) => {
   try {
-    await mongoose.connection.db.admin().ping();
-    res.json({ message: "Database connected successfully" });
+    // Pastikan Mongoose connection sudah siap
+    if (mongoose.connection.readyState === 1) {
+      await mongoose.connection.db.admin().ping();
+      res.json({ message: "Database connected successfully" });
+    } else {
+      // Jika Mongoose belum siap, kembalikan status connection
+      res.status(500).json({
+        message: "Database connection is not ready yet",
+        readyState: mongoose.connection.readyState, // Cek status connection
+        error: "MongoDB connection not established",
+      });
+    }
   } catch (error) {
-    console.error("Database connection error:", error); // Log error ke console
     res.status(500).json({
-      message: `Failed to connect to the database ${process.env.MONGODB_URI}`,
-      error: error.message, // Kirim pesan error ke client
+      message: "Failed to connect to the database",
+      error: error.message,
+      stack: error.stack, // Tampilkan stack trace untuk debug
     });
   }
 });
+
 app.get("/status", (req, res) => {
   res.json({
     message: "Service status",
