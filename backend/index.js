@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { User } from "./models/userModel.js";
 
 dotenv.config({});
 
@@ -24,10 +25,7 @@ const PORT = process.env.PORT || 3000;
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("MongoDB connected successfully.");
   } catch (error) {
     console.error("MongoDB connection failed:", error.message);
@@ -47,7 +45,6 @@ userRouter.get("/", (req, res) => {
 userRouter.post("/", (req, res) => {
   res.json({ message: "Create new user" });
 });
-import User from "./models/User.js";
 userRouter.get("/users", async (req, res) => {
   try {
     const users = await User.find();
