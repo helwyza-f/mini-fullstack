@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://mini-fullstack-ecru.vercel.app/",
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -25,10 +25,14 @@ const PORT = process.env.PORT || 3000;
 // Connect to MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("MongoDB connected successfully.");
   } catch (error) {
     console.error("MongoDB connection failed:", error.message);
+    process.exit(1); // Exit process jika koneksi gagal
   }
 };
 
@@ -47,14 +51,20 @@ userRouter.post("/", (req, res) => {
 });
 userRouter.get("/users", async (req, res) => {
   try {
+    console.log("Request received at /users");
     const users = await User.find();
+    console.log("Users fetched successfully");
 
     res.status(200).json({
       users,
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching users:", error.message);
+    res.status(500).json({
+      message: "Failed to get users",
+      error: error.message,
+    });
   }
 });
 
@@ -94,6 +104,15 @@ app.get("/", (req, res) => {
     message: "Account created successfully.",
     success: true,
   });
+});
+
+app.get("/check-db", async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.json({ message: "Database connected successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to connect to the database" });
+  }
 });
 
 app.listen(PORT, () => {
