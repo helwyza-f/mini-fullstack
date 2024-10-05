@@ -25,7 +25,11 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
+app.use("/api/eror", (req, res) => {
+  res.status(404).json({
+    message: "Not found",
+  });
+});
 app.use("/api/user", userRoute);
 
 const connectDB = async () => {
