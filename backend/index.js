@@ -118,6 +118,18 @@ app.get("/check-db", async (req, res) => {
     });
   }
 });
+app.get("/status", (req, res) => {
+  res.json({
+    message: "Service status",
+    database: {
+      connected: mongoose.connection.readyState === 1,
+      readyState: mongoose.connection.readyState,
+      host: mongoose.connection.host,
+      port: mongoose.connection.port,
+      name: mongoose.connection.name,
+    },
+  });
+});
 
 app.listen(PORT, () => {
   connectDB();
