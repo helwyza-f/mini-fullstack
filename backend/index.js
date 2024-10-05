@@ -111,7 +111,11 @@ app.get("/check-db", async (req, res) => {
     await mongoose.connection.db.admin().ping();
     res.json({ message: "Database connected successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to connect to the database" });
+    console.error("Database connection error:", error); // Log error ke console
+    res.status(500).json({
+      message: `Failed to connect to the database ${process.env.MONGODB_URI}`,
+      error: error.message, // Kirim pesan error ke client
+    });
   }
 });
 
